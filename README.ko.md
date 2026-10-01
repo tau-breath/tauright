@@ -32,6 +32,57 @@ https://github.com/dpa-network/welecome
 
 ---
 
+## 왜 TAURIGHT인가
+
+TAURIGHT는 한 번 실행하고 끝나는 스크립트보다 더 오래 살아남아야 하는 브라우저 작업을 위해 만들어졌습니다. 로그인된 세션, 장시간 자동화, 반복 운영 작업, 브라우저 에이전트, QA, 모니터링, 그리고 일반 Playwright 자동화와 다르게 반응하는 사이트를 다루는 데 초점을 둡니다.
+
+| 기능 | TAURIGHT가 제공하는 것 |
+| --- | --- |
+| 자동화 신호 감소 | Patchright의 Chromium 드라이버 패치를 이어받고 Playwright의 일반적인 `--enable-automation` 플래그 없이 Chrome을 실행 |
+| 실제 지속형 브라우저 정체성 | 쿠키, local storage, 세션, 확장 기능과 일반 브라우저 상태를 persistent profile에 유지 |
+| 동일 프로필 동시 실행 | persistent lane으로 하나의 canonical profile에서 여러 TAURIGHT 세션을 Chrome profile lock 충돌 없이 실행 |
+| 실제 Chrome 기본 사용 | 별도 특수 브라우저 빌드 대신 설치된 Chrome 채널을 기본 사용 |
+| 로컬 스냅샷 | 보이는 텍스트와 번호가 붙은 상호작용 요소를 원격 모델/API 호출 없이 로컬에서 생성 |
+| 풍부한 상호작용 | 클릭, 입력, 키 입력, 선택, hover, 우클릭, drag/drop, upload, scroll, back/forward, screenshot |
+| 탭과 팝업 | 탭 생성·전환·목록·닫기와 새로 열린 탭 자동 추적 |
+| 동적 페이지 인식 | 고정 sleep만 쓰지 않고 네트워크 활동과 DOM mutation이 안정될 때까지 기다림 |
+| 더 안전한 요소 지정 | 페이지가 바뀐 뒤 번호 요소를 다시 검증해 오래된 snapshot이 엉뚱한 컨트롤을 누르는 일을 방지 |
+| frame과 현대식 UI | child frame, 기본 컨트롤, ARIA widget, pointer 기반 custom control, styled checkbox/radio, 숨은 file input 인식 |
+
+## 탐지 신호 감소
+
+TAURIGHT는 일반 Playwright가 노출하는 여러 Chromium 자동화 신호를 줄이는 Patchright의 패치를 그대로 활용합니다. 이것은 **탐지 신호 감소이지 모든 사이트를 무조건 우회한다는 보장은 아닙니다.**
+
+- Patchright는 JavaScript 실행에 isolated execution context를 사용해 흔한 CDP `Runtime.enable` 노출을 피합니다.
+- Patchright는 `Console.enable` CDP 신호를 피합니다. 그 대가로 일반 Playwright console 기능에는 제한이 있습니다.
+- TAURIGHT는 Chromium 계열 브라우저를 `--disable-blink-features=AutomationControlled`와 함께 실행하고 Playwright 기본 `--enable-automation` 인자를 제거합니다.
+- TAURIGHT는 기본적으로 설치된 Google Chrome 채널을 사용하며 가짜 user-agent나 인위적인 fingerprint profile을 주입하지 않습니다.
+- persistent profile은 매 작업마다 새로운 자동화 정체성을 만드는 대신 일반 브라우저 상태를 계속 유지합니다.
+
+탐지 시스템은 IP 평판, 네트워크/TLS 특성, 계정 이력, 행동 패턴, 브라우저 버전, 사이트별 신호도 사용할 수 있습니다. 따라서 TAURIGHT는 모든 사이트나 anti-bot 시스템이 항상 자동화 트래픽을 받아들인다고 주장하지 않습니다.
+
+## 브라우저 기능
+
+실제 브라우저 자동화에서 사람들이 자주 필요로 하는 기능을 공개 MCP로 제공합니다.
+
+- headed/headless persistent Chrome session
+- 여러 named session의 병렬 실행
+- 같은 프로필을 동시에 쓰기 위한 persistent lane
+- 재시작 뒤에도 유지되는 cookie와 login state
+- 번호가 붙은 control과 보이는 텍스트의 compact local snapshot
+- button, link, text field, select, checkbox, radio, ARIA control, custom pointer control
+- iframe-aware element enumeration
+- click, 순차 입력, Enter와 임의 key press
+- hover와 right-click
+- drag and drop
+- 숨겨진 file input을 포함한 file upload
+- scroll, back, forward, reload
+- tab 생성·전환·닫기와 popup/new-tab 추적
+- 파괴적 확인창은 명시적으로 승인할 수 있는 alert/confirm/prompt 처리
+- viewport 또는 full-page screenshot
+- 동적 앱을 위한 DOM/network settling
+- 이전 snapshot으로 동작하기 전 element identity 재검증
+
 ## 주요 특징
 
 - 번호가 매겨진 상호작용 요소를 포함하는 빠르고 간결한 페이지 스냅샷

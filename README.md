@@ -32,6 +32,57 @@ https://github.com/dpa-network/welecome
 
 ---
 
+## Why TAURIGHT
+
+TAURIGHT is designed for browser work that has to survive beyond a one-shot script: authenticated sessions, long-running automation, repeated operator workflows, browser agents, QA, monitoring, and sites that react differently to stock Playwright automation.
+
+| Capability | What TAURIGHT provides |
+| --- | --- |
+| Reduced automation signals | Inherits Patchright's Chromium driver patches and launches Chrome without Playwright's usual `--enable-automation` flag |
+| Real persistent identity | Cookies, local storage, sessions, extensions, and normal browser state can live in a persistent profile |
+| Same-profile concurrency | Persistent lanes let multiple TAURIGHT sessions originate from the same canonical profile without fighting over Chrome's profile lock |
+| Real Chrome by default | Uses the installed Chrome channel by default instead of requiring a special browser build |
+| Local snapshots | Compact visible text and numbered interactive elements are generated locally with no remote model/API call |
+| Rich interaction | Click, type, key presses, select, hover, right-click, drag/drop, upload, scrolling, back/forward, screenshots |
+| Tabs and popups | Create, switch, list, close, and automatically follow newly opened tabs |
+| Dynamic-page awareness | Waits for network activity and DOM mutations to settle instead of relying only on fixed sleeps |
+| Safer element targeting | Revalidates numbered elements after page changes so a stale snapshot does not silently click the wrong control |
+| Frames and modern controls | Scans child frames and recognizes native controls, ARIA widgets, custom pointer controls, styled checkboxes/radios, and hidden file inputs |
+
+## Detection resistance
+
+TAURIGHT inherits Patchright's Chromium-side reduction of several signals commonly exposed by stock Playwright. This is **signal reduction, not a universal bypass guarantee**.
+
+- Patchright avoids the common CDP `Runtime.enable` leak by using isolated execution contexts for JavaScript evaluation.
+- Patchright avoids the `Console.enable` CDP signal. One trade-off is that normal Playwright console functionality is limited.
+- TAURIGHT launches Chromium-family browsers with `--disable-blink-features=AutomationControlled` and removes Playwright's default `--enable-automation` argument.
+- TAURIGHT uses a normal installed Google Chrome channel by default and does not inject a fake user-agent or synthetic fingerprint profile.
+- Persistent profiles preserve ordinary browser state instead of recreating a fresh automation identity for every task.
+
+Detection systems can also use IP reputation, network/TLS characteristics, account history, behavior, browser version, and site-specific signals. TAURIGHT therefore does not claim that every site or anti-bot system will always accept automated traffic.
+
+## Browser capabilities
+
+TAURIGHT exposes the parts people usually need from a practical browser automation layer:
+
+- persistent headed or headless Chrome sessions
+- multiple named sessions running in parallel
+- same-profile persistent lanes for concurrent work
+- durable cookies and login state across restarts
+- compact local page snapshots with numbered controls
+- buttons, links, text fields, selects, checkboxes, radios, ARIA controls, and custom pointer-based controls
+- iframe-aware element enumeration
+- click, sequential typing, Enter and arbitrary key presses
+- hover and right-click
+- drag and drop
+- file upload, including hidden file inputs
+- scroll, back, forward, and reload
+- tab creation, switching, closing, and popup/new-tab tracking
+- alert/confirm/prompt handling with explicit acceptance for destructive confirmations
+- viewport or full-page screenshots
+- DOM/network settling for dynamic applications
+- element identity checks before acting on an older snapshot
+
 ## Highlights
 
 - Fast compact page snapshots with numbered interactive elements

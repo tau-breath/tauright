@@ -32,6 +32,55 @@ https://github.com/dpa-network/welecome
 
 ---
 
+## なぜ TAURIGHT なのか
+
+TAURIGHT は、一度きりのスクリプトではなく、認証済みセッション、長時間の自動化、反復オペレーション、ブラウザエージェント、QA、監視、そして通常の Playwright 自動化に異なる反応をするサイトを扱うために設計されています。
+
+| 機能 | TAURIGHT が提供するもの |
+| --- | --- |
+| 自動化シグナルの削減 | Patchright の Chromium ドライバーパッチを継承し、通常の `--enable-automation` なしで Chrome を起動 |
+| 永続的なブラウザ ID | cookie、local storage、session、extension、通常のブラウザ状態を persistent profile に保持 |
+| 同一プロファイルの並列実行 | persistent lane により、同じ canonical profile 由来の複数セッションを Chrome profile lock の衝突なしで実行 |
+| 実際の Chrome を標準利用 | 特殊なブラウザビルドではなく、インストール済み Chrome channel を標準利用 |
+| ローカル snapshot | 可視テキストと番号付き操作要素を remote model/API なしでローカル生成 |
+| 豊富な操作 | click、type、key、select、hover、right-click、drag/drop、upload、scroll、back/forward、screenshot |
+| tab と popup | tab の作成・切替・一覧・終了と、新しく開いた tab の追跡 |
+| 動的ページ対応 | 固定 sleep だけでなく network activity と DOM mutation の安定を待機 |
+| 安全な要素指定 | ページ変化後に番号付き要素を再検証し、古い snapshot から誤った control を操作することを防止 |
+| frame と現代的 UI | child frame、native control、ARIA widget、pointer-based custom control、styled checkbox/radio、hidden file input を認識 |
+
+## 検出シグナルの削減
+
+TAURIGHT は、stock Playwright が公開しやすい Chromium 自動化シグナルを減らす Patchright のパッチを継承します。これは **シグナル削減であり、あらゆるサイトの万能 bypass を保証するものではありません。**
+
+- Patchright は JavaScript 評価に isolated execution context を使い、一般的な CDP `Runtime.enable` leak を回避します。
+- Patchright は `Console.enable` CDP signal を避けます。その代わり、通常の Playwright console 機能には制限があります。
+- TAURIGHT は `--disable-blink-features=AutomationControlled` を使い、Playwright 標準の `--enable-automation` 引数を除外します。
+- TAURIGHT はインストール済み Google Chrome channel を標準で使用し、偽の user-agent や人工的な fingerprint profile を注入しません。
+- persistent profile により、毎回新しい automation identity を作るのではなく通常の browser state を維持できます。
+
+検出側は IP reputation、network/TLS 特性、account history、behavior、browser version、site-specific signal も利用できます。そのため TAURIGHT はすべてのサイトや anti-bot system が常に自動化トラフィックを受け入れるとは主張しません。
+
+## ブラウザ機能
+
+- headed/headless の persistent Chrome session
+- 複数 named session の並列実行
+- 同一 profile の concurrent work 用 persistent lane
+- restart 後も残る cookie と login state
+- 番号付き control と可視テキストの compact local snapshot
+- button、link、text field、select、checkbox、radio、ARIA control、custom pointer control
+- iframe-aware element enumeration
+- click、sequential typing、Enter、任意 key press
+- hover と right-click
+- drag and drop
+- hidden file input を含む file upload
+- scroll、back、forward、reload
+- tab 作成・切替・終了、popup/new-tab tracking
+- destructive confirmation を明示的に承認できる alert/confirm/prompt 処理
+- viewport/full-page screenshot
+- dynamic application 向け DOM/network settling
+- 古い snapshot を使う前の element identity 再検証
+
 ## 主な特徴
 
 - 番号付きの操作可能要素を含む、高速でコンパクトなページスナップショット

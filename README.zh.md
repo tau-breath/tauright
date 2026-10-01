@@ -32,6 +32,55 @@ https://github.com/dpa-network/welecome
 
 ---
 
+## 为什么选择 TAURIGHT
+
+TAURIGHT 面向的不只是一次性脚本，而是需要长期保持状态的浏览器工作：已登录会话、长时间自动化、重复操作流程、浏览器代理、QA、监控，以及对普通 Playwright 自动化反应不同的网站。
+
+| 能力 | TAURIGHT 提供的功能 |
+| --- | --- |
+| 减少自动化信号 | 继承 Patchright 的 Chromium 驱动补丁，并在没有常规 `--enable-automation` 标志的情况下启动 Chrome |
+| 持久浏览器身份 | cookie、local storage、session、extension 和普通浏览器状态可保存在 persistent profile 中 |
+| 同一配置并发 | persistent lane 让多个 TAURIGHT session 从同一 canonical profile 派生，同时避免 Chrome profile lock 冲突 |
+| 默认使用真实 Chrome | 默认使用已安装的 Chrome channel，无需特殊浏览器构建 |
+| 本地 snapshot | 在本地生成可见文本和编号交互元素，无需远程 model/API |
+| 丰富交互 | click、type、key、select、hover、right-click、drag/drop、upload、scroll、back/forward、screenshot |
+| tab 与 popup | 创建、切换、列出、关闭 tab，并跟踪新打开的 tab |
+| 动态页面感知 | 不只依赖固定 sleep，而是等待网络活动和 DOM mutation 稳定 |
+| 更安全的元素定位 | 页面变化后重新验证编号元素，避免旧 snapshot 操作错误控件 |
+| frame 与现代控件 | 识别 child frame、原生控件、ARIA widget、pointer-based custom control、styled checkbox/radio 和 hidden file input |
+
+## 减少检测信号
+
+TAURIGHT 继承 Patchright 针对 Chromium 的自动化信号削减补丁。这是**减少信号，不是对所有网站的通用绕过保证**。
+
+- Patchright 使用 isolated execution context 执行 JavaScript，以避免常见的 CDP `Runtime.enable` 泄漏。
+- Patchright 避免 `Console.enable` CDP 信号，相应地普通 Playwright console 功能会受到限制。
+- TAURIGHT 使用 `--disable-blink-features=AutomationControlled` 启动 Chromium 系浏览器，并移除 Playwright 默认的 `--enable-automation` 参数。
+- TAURIGHT 默认使用已安装的 Google Chrome channel，不注入伪造 user-agent 或人工 fingerprint profile。
+- persistent profile 保留正常浏览器状态，而不是每个任务都重新创建一个新的 automation identity。
+
+检测系统还可能使用 IP reputation、network/TLS 特征、account history、behavior、browser version 和站点自定义信号。因此 TAURIGHT 不声称所有网站或 anti-bot 系统都会始终接受自动化流量。
+
+## 浏览器能力
+
+- headed/headless persistent Chrome session
+- 多个 named session 并行运行
+- 同一 profile 并发工作的 persistent lane
+- 重启后仍保留 cookie 和 login state
+- 带编号控件和可见文本的 compact local snapshot
+- button、link、text field、select、checkbox、radio、ARIA control、custom pointer control
+- iframe-aware element enumeration
+- click、sequential typing、Enter 和任意 key press
+- hover 与 right-click
+- drag and drop
+- 包含 hidden file input 的 file upload
+- scroll、back、forward、reload
+- tab 创建、切换、关闭以及 popup/new-tab tracking
+- 可显式批准 destructive confirmation 的 alert/confirm/prompt 处理
+- viewport/full-page screenshot
+- 面向动态应用的 DOM/network settling
+- 使用旧 snapshot 前重新验证 element identity
+
 ## 主要特性
 
 - 快速、紧凑的页面快照，并为可交互元素编号
