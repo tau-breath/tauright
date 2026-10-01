@@ -1,0 +1,57 @@
+{
+  "name": "tauright",
+  "version": "0.2.0",
+  "type": "commonjs",
+  "description": "Persistent multi-session Patchright MCP with fast local page snapshots, same-profile lanes, and automatic stable Patchright updates",
+  "author": "TAU-BREATH",
+  "homepage": "https://dpa.network",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tau-breath/tauright.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tau-breath/tauright/issues"
+  },
+  "keywords": [
+    "browser-automation",
+    "mcp",
+    "patchright",
+    "persistent-profile",
+    "multi-session",
+    "browser",
+    "tauright",
+    "dpa"
+  ],
+  "main": "bin/tauright-mcp.mjs",
+  "files": [
+    "bin/tauright-mcp.mjs",
+    "src/core/**",
+    "README.md",
+    "README.ko.md",
+    "README.ja.md",
+    "README.zh.md",
+    "README.ru.md",
+    "README.hi.md",
+    "banner.png",
+    "THIRD_PARTY_NOTICES.md",
+    "verify-tauright.mjs",
+    ".env.example"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node bin/tauright-mcp.mjs",
+    "mcp": "node bin/tauright-mcp.mjs",
+    "test:smoke": "node verify-tauright.mjs",
+    "pack:check": "npm pack --dry-run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "patchright": "1.63.0",
+    "zod": "^3.25.0"
+  },
+  "bin": {
+    "tauright": "bin/tauright-mcp.mjs"
+  }
+}
