@@ -4,11 +4,8 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { cpSync, existsSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
-import { updatePatchrightStable } from "../src/core/updater.mjs";
 import { taurightPaths } from "../src/core/paths.mjs";
 
-// Update Patchright before importing the browser engine so this process uses the new stable build.
-const patchrightUpdate = updatePatchrightStable();
 const { TaurightBrowser } = await import("../src/core/session.mjs");
 
 const sessions = new Map();
@@ -100,7 +97,7 @@ async function tabInfo(browserInstance) {
   })));
 }
 
-const server = new McpServer({ name: "tauright", version: "0.2.0" });
+const server = new McpServer({ name: "tauright", version: "0.2.1" });
 const sessionField = z.string().optional().describe("Named TAURIGHT session; omitted = active session");
 
 server.registerTool("browser_session_create", {
@@ -188,7 +185,7 @@ server.registerTool("browser_status", {
     url: b.page.url(),
     title: await b.page.title().catch(() => ""),
     tabs: await tabInfo(b),
-    patchright_update: patchrightUpdate,
+    patchright: { version: "1.63.0", update_policy: "pinned-with-tauright-release" },
     stats: b.stats,
     data_root: paths.dataRoot,
   });

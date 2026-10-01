@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 
 const child = spawn(process.execPath, ["bin/tauright-mcp.mjs"], {
   cwd: new URL(".", import.meta.url),
-  env: { ...process.env, TAURIGHT_HEADED: "0", TAURIGHT_AUTO_UPDATE: "0" },
+  env: { ...process.env, TAURIGHT_HEADED: "0" },
   stdio: ["pipe", "pipe", "pipe"],
 });
 

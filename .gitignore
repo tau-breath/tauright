@@ -1,5 +1,7 @@
-# Dependencies
-node_modules
+# Runtime dependencies are intentionally vendored and tracked.
+# TAURIGHT does not require a package-registry install step.
+!node_modules/
+!node_modules/**
 dist/*
 .pnp
 .pnp.js
@@ -68,3 +70,4 @@ playwright-report/
 playwright/.cache/
 codegen.js
 proxies.txt
+release/

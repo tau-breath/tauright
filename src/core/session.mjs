@@ -33,7 +33,7 @@ export class TaurightBrowser {
       }
     } catch (error) {
       if (/Executable doesn't exist|browserType\.launch/i.test(String(error?.message)) && /install/i.test(String(error?.message))) {
-        throw new Error("Chromium for Patchright is not installed. Run: npx patchright install chromium");
+        throw new Error("A compatible Chrome/Chromium browser was not found. TAURIGHT portable releases are designed to use an installed Chrome channel by default.");
       }
       throw error;
     }

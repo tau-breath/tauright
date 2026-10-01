@@ -48,25 +48,29 @@ https://github.com/dpa-network/welecome
 - Persistent named browser sessions
 - Multiple concurrent sessions from the same logical profile through persistent lanes
 - Tabs, reload, wait, screenshots, keyboard, drag/drop, upload, select, and navigation controls
-- Automatic tracking of Patchright's npm `latest` stable release before the browser engine is imported
+- Patchright version pinned and tested as part of each TAURIGHT release
 - Profiles stored outside the package/install directory so package and Patchright updates do not remove logins
 - Local page scanning: no remote decision service is required for snapshots or direct actions
-- Git-friendly public runtime with a deliberately small source surface
+- Self-contained Git-tracked runtime: TAURIGHT and its verified browser dependencies advance together
 
 ## Install
 
-```bash
-npm install -g tauright
-```
+### Windows portable release
 
-The npm package has not been published yet. Until the first npm release, install from the repository checkout using the local instructions below.
+TAURIGHT's canonical distribution channel is **GitHub Releases**.
 
-Or run from a local checkout:
+1. Download `TAURIGHT-vX.Y.Z-win-x64.zip` from the latest GitHub Release.
+2. Optionally verify the accompanying `.sha256` file.
+3. Extract the archive anywhere.
+4. Run `TAURIGHT.cmd`.
 
-```bash
-npm install
-npm run mcp
-```
+The portable archive includes the Node runtime and TAURIGHT's verified runtime dependencies. No package-registry account, global package install, or publish/login flow is required.
+
+### Git checkout
+
+TAURIGHT tracks its verified runtime dependencies directly in the repository. A Git checkout therefore needs no registry install step. `TAURIGHT.cmd` performs a safe `git pull --ff-only` before launch when it detects a `.git` checkout, so TAURIGHT code and the verified Patchright runtime advance together. If the pull cannot fast-forward, TAURIGHT keeps the current verified runtime and starts normally.
+
+`package.json` is kept as runtime dependency metadata, not as a registry distribution contract. Official releases are built from the same Git-tracked runtime and published as GitHub Release assets.
 
 TAURIGHT uses the default supported browser channel unless another Patchright-supported channel is selected with `PATCHRIGHT_CHANNEL`.
 
@@ -100,27 +104,11 @@ session=worker-c profile_key=my-profile
 
 The first time each lane is created, it is copied from the canonical profile. Later launches reuse that lane, so cookies, login state, and other persistent browser data created inside that lane survive restarts.
 
-## Automatic Patchright stable updates
+## Dependency update policy
 
-`TAURIGHT_AUTO_UPDATE=1` is enabled by default.
+TAURIGHT does **not** query a package registry or mutate its dependencies at startup.
 
-At startup TAURIGHT:
-
-1. Reads the installed Patchright version.
-2. Reads npm's `patchright` `latest` dist-tag.
-3. Accepts only a plain stable semantic version such as `1.63.0`.
-4. Installs it when it differs from the installed version.
-5. Imports the browser engine only after the update step completes.
-
-Browser profiles and persistent lanes are stored independently from the installed dependency tree, so a Patchright update does not replace or delete profile data.
-
-If the package registry or network is unavailable, TAURIGHT continues with the installed version by default. Set `TAURIGHT_UPDATE_STRICT=1` to make an update-check failure prevent startup.
-
-Disable automatic updates with:
-
-```text
-TAURIGHT_AUTO_UPDATE=0
-```
+Each TAURIGHT release pins a Patchright version that is tested with that release. The verified runtime is committed with TAURIGHT itself, so one Git fast-forward updates the application and browser runtime together. Browser profiles and persistent lanes remain outside the application directory, so replacing or updating TAURIGHT does not delete login state.
 
 ## MCP tools
 
@@ -158,11 +146,11 @@ Run TAURIGHT over stdio:
 }
 ```
 
-For a global npm installation, use `tauright` as the command after the package is published.
+For the Windows portable release, point your MCP configuration at the extracted `TAURIGHT.cmd` or directly at its bundled runtime and `bin/tauright-mcp.mjs`.
 
 ## Project status
 
-TAURIGHT is currently **0.2.x**. The public core is intentionally small while session, lane, profile persistence, tab control, snapshots, actions, screenshots, and stable Patchright updates are exercised in real workflows.
+TAURIGHT is currently **0.2.x**. Session, lane, profile persistence, tab control, snapshots, actions, screenshots, and release-pinned Patchright runtime updates are exercised in real workflows.
 
 Issues and focused pull requests are welcome at the public repository.
 
@@ -173,6 +161,14 @@ TAURIGHT uses **Patchright** as its browser automation dependency. Patchright is
 ## Distribution
 
 TAURIGHT is distributed as a **TAU-BREATH** project under **TAU GROUP / DPA.network**.
+
+### Distribution policy: GitHub Releases only
+
+**TAURIGHT does not use npm as a distribution channel.**
+
+We deliberately avoid registry-centric publishing because of software supply-chain risk, authentication friction, and unnecessary dependence on an additional publishing gate. TAURIGHT's canonical public source and release artifacts live on GitHub, with portable release archives and SHA-256 checksums published through GitHub Releases.
+
+**No npm publishing. No runtime registry checks. GitHub Releases is the canonical distribution channel.**
 
 **DPA — Decentralized Protection Alliance**  
 Freedom without surveillance, protection for everyone.

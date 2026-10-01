@@ -6,7 +6,6 @@ Patchright is maintained by its upstream authors and is licensed under the Apach
 
 - Project: Patchright
 - Upstream repository: https://github.com/Kaliiiiiiiiii-Vinyzu/patchright
-- Package: https://www.npmjs.com/package/patchright
 - Upstream copyright: © Vinyzu
 
 TAURIGHT does not claim ownership of Patchright or its upstream patches.
