@@ -19,15 +19,6 @@ TAURIGHT — это браузерный MCP с постоянными мног�
 
 **Одна браузерная идентичность. Несколько независимых lane. Постоянство по умолчанию.**
 
-## Публичная идентичность распространения
-
-- Публичная идентичность: **TAU-BREATH**
-- Группа: **TAU GROUP**
-- Сеть распространения: **DPA.network**
-- В GitHub Releases и публичной документации не используются названия внешних AI-компаний и моделей.
-- Для проекта, автора, release notes, metadata, примеров и документации последовательно используется **TAU-BREATH**.
-- Публичное распространение TAURIGHT объединено под **TAU GROUP / DPA.network**.
-
 ## DPA — Decentralized Protection Alliance
 
 **Freedom without surveillance, protection for everyone.**

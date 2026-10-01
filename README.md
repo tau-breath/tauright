@@ -19,15 +19,6 @@ The public runtime is model-free: page snapshots, element numbering, actions, ta
 
 **One browser identity. Many independent lanes. Persistent by default.**
 
-## Public Distribution Identity
-
-- Public distribution identity: **TAU-BREATH**
-- Group: **TAU GROUP**
-- Distribution network: **DPA.network**
-- GitHub releases and public documentation must not use external AI company names or model names.
-- Public project identity, author identity, release notes, package metadata, examples, and documentation should use **TAU-BREATH** consistently.
-- TAURIGHT public distribution is integrated under **TAU GROUP / DPA.network**.
-
 ## DPA — Decentralized Protection Alliance
 
 **Freedom without surveillance, protection for everyone.**

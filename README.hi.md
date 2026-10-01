@@ -19,15 +19,6 @@ Public runtime किसी बाहरी decision model पर निर्�
 
 **एक browser identity. कई independent lane. Persistence डिफ़ॉल्ट है।**
 
-## Public Distribution Identity
-
-- Public distribution identity: **TAU-BREATH**
-- Group: **TAU GROUP**
-- Distribution network: **DPA.network**
-- GitHub Releases और public documentation में बाहरी AI कंपनियों या model names का उपयोग नहीं किया जाता।
-- Public project identity, author identity, release notes, package metadata, examples और documentation में **TAU-BREATH** को एकरूप रूप से उपयोग किया जाता है।
-- TAURIGHT की public distribution **TAU GROUP / DPA.network** के अंतर्गत एकीकृत है।
-
 ## DPA — Decentralized Protection Alliance
 
 **Freedom without surveillance, protection for everyone.**

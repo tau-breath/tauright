@@ -19,15 +19,6 @@ TAURIGHT は Patchright を基盤とする、永続型マルチセッション�
 
 **ひとつのブラウザ ID。複数の独立 lane。永続性がデフォルト。**
 
-## 公開配布 ID
-
-- 公開配布 ID: **TAU-BREATH**
-- グループ: **TAU GROUP**
-- 配布ネットワーク: **DPA.network**
-- GitHub Releases と公開ドキュメントでは、外部 AI 企業名やモデル名を使用しません。
-- 公開プロジェクト ID、作者 ID、リリースノート、パッケージメタデータ、例、ドキュメントでは **TAU-BREATH** を一貫して使用します。
-- TAURIGHT の公開配布は **TAU GROUP / DPA.network** に統合されます。
-
 ## DPA — Decentralized Protection Alliance
 
 **Freedom without surveillance, protection for everyone.**

@@ -19,15 +19,6 @@ TAURIGHT 是一个基于 Patchright 的持久化多会话浏览器 MCP。
 
 **一个浏览器身份。多个独立 lane。默认持久化。**
 
-## 公开发行身份
-
-- 公开发行身份：**TAU-BREATH**
-- 所属组：**TAU GROUP**
-- 发行网络：**DPA.network**
-- GitHub Releases 和公开文档中不使用外部 AI 公司名或模型名。
-- 公开项目身份、作者身份、发行说明、软件包元数据、示例和文档统一使用 **TAU-BREATH**。
-- TAURIGHT 的公开发行统一归入 **TAU GROUP / DPA.network**。
-
 ## DPA — Decentralized Protection Alliance
 
 **Freedom without surveillance, protection for everyone.**

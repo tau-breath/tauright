@@ -19,15 +19,6 @@ TAURIGHT는 Patchright를 기반으로 만든 지속형 멀티세션 브라우�
 
 **하나의 브라우저 정체성. 여러 개의 독립된 lane. 기본값은 지속형.**
 
-## 공개 배포 정체성
-
-- 공개 배포 정체성: **TAU-BREATH**
-- 그룹: **TAU GROUP**
-- 배포 네트워크: **DPA.network**
-- GitHub 릴리스와 공개 문서에서는 외부 AI 회사명이나 모델명을 사용하지 않습니다.
-- 공개 프로젝트 정체성, 작성자 정체성, 릴리스 노트, 패키지 메타데이터, 예제, 문서는 **TAU-BREATH**를 일관되게 사용해야 합니다.
-- TAURIGHT의 공개 배포는 **TAU GROUP / DPA.network** 아래에 통합되어 있습니다.
-
 ## DPA — Decentralized Protection Alliance
 
 **감시 없는 자유, 모두를 위한 보호.**
